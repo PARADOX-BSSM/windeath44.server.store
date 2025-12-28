@@ -44,4 +44,8 @@ public class ProductQueryService {
     return new CursorPage<>(responses, hasNext);
   }
 
+    public Product findById(Long productId) {
+      return productRepository.findById(productId)
+        .orElseThrow(NotFoundProductException::getInstance);
+    }
 }

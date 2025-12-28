@@ -1,5 +1,6 @@
 package paradox.store.domain.product.service;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -22,7 +23,12 @@ public class CurrencyQueryService {
   private final CurrencyRepository currencyRepository;
   private final CurrencyMapper currencyMapper;
 
-  public CurrencyResponse getCurrency(Long currencyId) {
+    public Currency findById(Long currencyId) {
+        return currencyRepository.findById(currencyId)
+                .orElseThrow(NotFoundCurrencyException::getInstance);
+    }
+
+    public CurrencyResponse getCurrency(Long currencyId) {
     Currency currency = currencyRepository.findById(currencyId)
         .orElseThrow(NotFoundCurrencyException::getInstance);
     return CurrencyMapper.toResponse(currency);
