@@ -32,4 +32,11 @@ public class Product {
 
   @Column(name = "is_stackable", nullable = false)
   private Boolean isStackable;
+
+  public void update(String name, String description, String sumnailUrl, Boolean isStackable) {
+    this.name = name;
+    this.description = description;
+    this.sumnailUrl = sumnailUrl;
+    this.isStackable = isStackable;
+  }
 }
