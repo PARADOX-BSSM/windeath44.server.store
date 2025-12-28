@@ -11,7 +11,9 @@ public enum ErrorCode {
   CURRENCY_ALREADY_EXISTS(409, "currency already exists"),
   CURRENCY_NOT_FOUND(404, "currency not found"),
   PRICE_POLICY_ALREADY_EXISTS(409, "price policy already exists"),
-  PRICE_POLICY_NOT_FOUND(404, "price policy not found");
+  PRICE_POLICY_NOT_FOUND(404, "price policy not found"),
+  INVENTORY_NOT_FOUND(404, "inventory not found");
+
   private int status;
   private String message;
 }
