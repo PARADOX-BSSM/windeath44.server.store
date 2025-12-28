@@ -9,14 +9,13 @@ public record ProductResponse(
     String sumnailUrl,
     Boolean isStackable
 ) {
-
-  public static ProductResponse from(Product product) {
-    return new ProductResponse(
-        product.getProductId(),
-        product.getName(),
-        product.getDescription(),
-        product.getSumnailUrl(),
-        product.getIsStackable()
-    );
-  }
+    public static ProductResponse from(Product product) {
+        return new ProductResponse(
+                product.getProductId(),
+                product.getName(),
+                product.getDescription(),
+                product.getSumnailUrl(),
+                product.getIsStackable()
+        );
+    }
 }

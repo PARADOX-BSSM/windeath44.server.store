@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import paradox.store.domain.product.domain.Product;
 import paradox.store.domain.product.dto.ProductResponse;
 import paradox.store.domain.product.exception.NotFoundProductException;
+import paradox.store.domain.product.mapper.ProductMapper;
 import paradox.store.domain.product.repository.ProductRepository;
 import paradox.store.global.dto.CursorPage;
 
@@ -19,26 +20,26 @@ import paradox.store.global.dto.CursorPage;
 public class ProductQueryService {
 
   private final ProductRepository productRepository;
+  private final ProductMapper productMapper;
 
   public ProductResponse getProduct(Long productId) {
     Product product = productRepository.findById(productId)
-        .orElseThrow(NotFoundProductException::new);
-    return ProductResponse.from(product);
+        .orElseThrow(NotFoundProductException::getInstance);
+    return ProductMapper.toResponse(product);
   }
 
   public CursorPage<ProductResponse> getProducts(Long cursor, int size) {
     int limit = Math.max(1, size);
-    Pageable pageable = PageRequest.of(0, limit + 1, Sort.by("productId").ascending());
+    Pageable pageable = PageRequest.of(0, limit, Sort.by("productId").ascending());
 
     Slice<Product> products = (cursor == null)
         ? productRepository.findAllByOrderByProductIdAsc(pageable)
         : productRepository.findByProductIdGreaterThanOrderByProductIdAsc(cursor, pageable);
 
     boolean hasNext = products.hasNext();
-    List<ProductResponse> responses = products.getContent()
-            .stream()
-            .map(ProductResponse::from)
-            .toList();
+
+    List<ProductResponse> responses = productMapper.toCursorResponse(products);
+
 
     return new CursorPage<>(responses, hasNext);
   }
