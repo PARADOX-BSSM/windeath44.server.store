@@ -1,6 +1,7 @@
 package paradox.store.global.util;
 
-import com.example.user.global.dto.ResponseDto;
+
+import paradox.store.global.dto.ResponseDto;
 
 public class HttpUtil {
     public static <T> ResponseDto<T> success(String message, T data) {

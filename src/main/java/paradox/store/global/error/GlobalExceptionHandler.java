@@ -1,8 +1,7 @@
 package paradox.store.global.error;
 
-import com.example.user.domain.exception.gRPC.GrpcMappedException;
-import com.example.user.global.error.exception.ErrorCode;
-import com.example.user.global.error.exception.GlobalException;
+import paradox.store.global.error.exception.ErrorCode;
+import paradox.store.global.error.exception.GlobalException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,14 +18,9 @@ public class GlobalExceptionHandler {
     int status = errorCode.getStatus();
     log.error(errorCode.getMessage());
 
-    return new ResponseEntity<>(new ErrorResponse(errorCode), HttpStatus.valueOf(status));
-  }
-
-  @ExceptionHandler(GrpcMappedException.class)
-  public ResponseEntity<Void> grpcMappedException(GrpcMappedException e) {
-    return ResponseEntity
-            .status(e.getStatus())
-            .build();
+    return new ResponseEntity<>(
+            new ErrorResponse(errorCode), HttpStatus.valueOf(status)
+    );
   }
 
 }
