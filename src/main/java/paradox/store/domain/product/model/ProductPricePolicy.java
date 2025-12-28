@@ -1,4 +1,4 @@
-package paradox.store.domain.product.domain;
+package paradox.store.domain.product.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
@@ -9,7 +9,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 import lombok.*;
-import paradox.store.domain.product.domain.key.ProductPricePolicyId;
+import paradox.store.domain.product.model.key.ProductPricePolicyId;
 
 @Entity
 @Table(name = "product_price_policy")
@@ -38,4 +38,12 @@ public class ProductPricePolicy {
   public void updatePriceAmount(Long priceAmount) {
     this.priceAmount = priceAmount;
   }
+
+    public Long getProductId() {
+      return this.id.getProductId();
+    }
+
+    public Long getCurrencyId() {
+      return this.id.getCurrencyId();
+    }
 }
