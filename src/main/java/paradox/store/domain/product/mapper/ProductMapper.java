@@ -2,7 +2,7 @@ package paradox.store.domain.product.mapper;
 
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Component;
-import paradox.store.domain.product.domain.Product;
+import paradox.store.domain.product.model.Product;
 import paradox.store.domain.product.dto.ProductCreateRequest;
 import paradox.store.domain.product.dto.ProductResponse;
 

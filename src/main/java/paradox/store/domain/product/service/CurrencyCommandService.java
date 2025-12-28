@@ -3,7 +3,7 @@ package paradox.store.domain.product.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import paradox.store.domain.product.domain.Currency;
+import paradox.store.domain.product.model.Currency;
 import paradox.store.domain.product.dto.CurrencyCreateRequest;
 import paradox.store.domain.product.dto.CurrencyUpdateRequest;
 import paradox.store.domain.product.exception.AlreadyExistsCurrencyException;

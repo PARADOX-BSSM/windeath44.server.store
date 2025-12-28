@@ -1,13 +1,12 @@
 package paradox.store.domain.product.service;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import paradox.store.domain.product.domain.Currency;
+import paradox.store.domain.product.model.Currency;
 import paradox.store.domain.product.dto.CurrencyResponse;
 import paradox.store.domain.product.exception.NotFoundCurrencyException;
 import paradox.store.domain.product.mapper.CurrencyMapper;

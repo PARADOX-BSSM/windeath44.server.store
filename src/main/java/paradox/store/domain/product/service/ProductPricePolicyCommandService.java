@@ -3,20 +3,16 @@ package paradox.store.domain.product.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import paradox.store.domain.product.domain.Currency;
-import paradox.store.domain.product.domain.Product;
-import paradox.store.domain.product.domain.ProductPricePolicy;
-import paradox.store.domain.product.domain.key.ProductPricePolicyId;
+import paradox.store.domain.product.model.Currency;
+import paradox.store.domain.product.model.Product;
+import paradox.store.domain.product.model.ProductPricePolicy;
+import paradox.store.domain.product.model.key.ProductPricePolicyId;
 import paradox.store.domain.product.dto.ProductPricePolicyCreateRequest;
 import paradox.store.domain.product.dto.ProductPricePolicyUpdateRequest;
 import paradox.store.domain.product.exception.AlreadyExistsPricePolicyException;
-import paradox.store.domain.product.exception.NotFoundCurrencyException;
 import paradox.store.domain.product.exception.NotFoundPricePolicyException;
-import paradox.store.domain.product.exception.NotFoundProductException;
 import paradox.store.domain.product.mapper.ProductPricePolicyMapper;
-import paradox.store.domain.product.repository.CurrencyRepository;
 import paradox.store.domain.product.repository.ProductPricePolicyRepository;
-import paradox.store.domain.product.repository.ProductRepository;
 
 @Service
 @RequiredArgsConstructor

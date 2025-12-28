@@ -1,6 +1,6 @@
 package paradox.store.domain.product.dto;
 
-import paradox.store.domain.product.domain.ProductPricePolicy;
+import paradox.store.domain.product.model.ProductPricePolicy;
 
 public record ProductPricePolicyResponse(
     Long productId,

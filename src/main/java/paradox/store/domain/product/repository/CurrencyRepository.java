@@ -3,9 +3,7 @@ package paradox.store.domain.product.repository;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
-import paradox.store.domain.product.domain.Currency;
-
-import java.util.List;
+import paradox.store.domain.product.model.Currency;
 
 public interface CurrencyRepository extends JpaRepository<Currency, Long> {
   boolean existsByCode(String code);

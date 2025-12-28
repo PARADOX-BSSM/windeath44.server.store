@@ -2,10 +2,10 @@ package paradox.store.domain.product.mapper;
 
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Component;
-import paradox.store.domain.product.domain.Currency;
-import paradox.store.domain.product.domain.Product;
-import paradox.store.domain.product.domain.ProductPricePolicy;
-import paradox.store.domain.product.domain.key.ProductPricePolicyId;
+import paradox.store.domain.product.model.Currency;
+import paradox.store.domain.product.model.Product;
+import paradox.store.domain.product.model.ProductPricePolicy;
+import paradox.store.domain.product.model.key.ProductPricePolicyId;
 import paradox.store.domain.product.dto.ProductPricePolicyCreateRequest;
 import paradox.store.domain.product.dto.ProductPricePolicyResponse;
 

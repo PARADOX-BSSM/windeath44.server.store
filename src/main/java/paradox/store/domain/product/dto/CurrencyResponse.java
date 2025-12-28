@@ -1,6 +1,6 @@
 package paradox.store.domain.product.dto;
 
-import paradox.store.domain.product.domain.Currency;
+import paradox.store.domain.product.model.Currency;
 
 public record CurrencyResponse(
     Long currencyId,

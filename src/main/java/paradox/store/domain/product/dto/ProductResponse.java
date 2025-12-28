@@ -1,6 +1,6 @@
 package paradox.store.domain.product.dto;
 
-import paradox.store.domain.product.domain.Product;
+import paradox.store.domain.product.model.Product;
 
 public record ProductResponse(
     Long productId,

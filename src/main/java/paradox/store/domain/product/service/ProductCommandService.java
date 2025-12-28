@@ -3,7 +3,7 @@ package paradox.store.domain.product.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import paradox.store.domain.product.domain.Product;
+import paradox.store.domain.product.model.Product;
 import paradox.store.domain.product.dto.ProductCreateRequest;
 import paradox.store.domain.product.dto.ProductUpdateRequest;
 import paradox.store.domain.product.exception.NotFoundProductException;

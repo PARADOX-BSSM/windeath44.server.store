@@ -1,14 +1,14 @@
 package paradox.store.domain.product.service;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import paradox.store.domain.product.domain.Product;
+import paradox.store.domain.product.model.Product;
 import paradox.store.domain.product.dto.ProductResponse;
 import paradox.store.domain.product.exception.NotFoundProductException;
 import paradox.store.domain.product.mapper.ProductMapper;
