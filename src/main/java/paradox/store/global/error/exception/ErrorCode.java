@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 public enum ErrorCode {
 
-  ;
+  PRODUCT_NOT_FOUND(404, "product not found");
   private int status;
   private String message;
 }
