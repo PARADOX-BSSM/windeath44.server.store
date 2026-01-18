@@ -7,7 +7,10 @@ import lombok.Getter;
 @Getter
 public enum ErrorCode {
 
-  ;
+  PRODUCT_NOT_FOUND(404, "product not found"),
+  INVENTORY_NOT_FOUND(404, "inventory not found"),
+  INSUFFICIENT_MONEY(400, "insufficient money");
+
   private int status;
   private String message;
 }

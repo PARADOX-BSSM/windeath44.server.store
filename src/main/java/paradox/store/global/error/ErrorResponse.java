@@ -1,6 +1,6 @@
 package paradox.store.global.error;
 
-import com.example.user.global.error.exception.ErrorCode;
+import paradox.store.global.error.exception.ErrorCode;
 
 public record ErrorResponse(
         int status,
