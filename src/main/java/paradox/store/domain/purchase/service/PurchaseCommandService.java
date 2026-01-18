@@ -15,6 +15,8 @@ import paradox.store.domain.product.exception.NotFoundProductException;
 import paradox.store.domain.product.model.Product;
 import paradox.store.domain.product.repository.ProductRepository;
 import paradox.store.domain.purchase.dto.PurchaseRequest;
+import paradox.store.domain.purchase.model.Purchase;
+import paradox.store.domain.purchase.repository.PurchaseRepository;
 import paradox.store.domain.purchase.exception.InsufficientMoneyException;
 import paradox.store.global.client.UserClient;
 import paradox.store.global.client.dto.User;
@@ -27,6 +29,7 @@ public class PurchaseCommandService {
     private final ProductRepository productRepository;
     private final InventoryRepository inventoryRepository;
     private final ItemRepository itemRepository;
+    private final PurchaseRepository purchaseRepository;
 
     @Transactional
     public void purchase(PurchaseRequest request) {
@@ -48,7 +51,17 @@ public class PurchaseCommandService {
         // 5. 돈 차감
         userClient.deductMoney(request.userId(), totalPrice);
         
-        // 6. 인벤토리 조회 (없으면 생성)
+        // 6. 구매 내역 저장
+        Purchase purchase = Purchase.builder()
+                .userId(request.userId())
+                .product(product)
+                .quantity(request.quantity())
+                .totalPrice(totalPrice)
+                .createdAt(LocalDateTime.now())
+                .build();
+        purchaseRepository.save(purchase);
+        
+        // 7. 인벤토리 조회 (없으면 생성)
         Inventory inventory = inventoryRepository.findByUserId(request.userId())
                 .orElseGet(() -> inventoryRepository.save(
                         Inventory.builder()
@@ -56,7 +69,7 @@ public class PurchaseCommandService {
                                 .build()
                 ));
         
-        // 7. 아이템 추가 (stackable 여부에 따라 처리)
+        // 8. 아이템 추가 (stackable 여부에 따라 처리)
         if (product.getIsStackable()) {
             // stackable: 기존 아이템이 있으면 수량 증가, 없으면 새로 생성
             itemRepository.findByInventoryAndProduct(inventory, product)
