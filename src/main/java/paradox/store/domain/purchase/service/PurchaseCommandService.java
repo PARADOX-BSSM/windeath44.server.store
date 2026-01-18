@@ -33,25 +33,28 @@ public class PurchaseCommandService {
 
     @Transactional
     public void purchase(PurchaseRequest request) {
-        // 1. 사용자 조회 및 잔액 확인
-        User user = userClient.findById(request.userId());
-        
-        // 2. 상품 조회
-        Product product = productRepository.findById(request.productId())
-                .orElseThrow(NotFoundProductException::getInstance);
-        
-        // 3. 총 금액 계산
+        Product product = getProduct(request.productId());
         Long totalPrice = product.getMoney() * request.quantity();
         
-        // 4. 잔액 확인
+        validateAndDeductMoney(request.userId(), totalPrice);
+        savePurchaseHistory(request, product, totalPrice);
+        addItemToInventory(request.userId(), product, request.quantity());
+    }
+
+    private Product getProduct(Long productId) {
+        return productRepository.findById(productId)
+                .orElseThrow(NotFoundProductException::getInstance);
+    }
+
+    private void validateAndDeductMoney(String userId, Long totalPrice) {
+        User user = userClient.findById(userId);
         if (user.getMoney() < totalPrice) {
             throw InsufficientMoneyException.getInstance();
         }
-        
-        // 5. 돈 차감
-        userClient.deductMoney(request.userId(), totalPrice);
-        
-        // 6. 구매 내역 저장
+        userClient.deductMoney(userId, totalPrice);
+    }
+
+    private void savePurchaseHistory(PurchaseRequest request, Product product, Long totalPrice) {
         Purchase purchase = Purchase.builder()
                 .userId(request.userId())
                 .product(product)
@@ -60,32 +63,40 @@ public class PurchaseCommandService {
                 .createdAt(LocalDateTime.now())
                 .build();
         purchaseRepository.save(purchase);
+    }
+
+    private void addItemToInventory(String userId, Product product, Long quantity) {
+        Inventory inventory = getOrCreateInventory(userId);
         
-        // 7. 인벤토리 조회 (없으면 생성)
-        Inventory inventory = inventoryRepository.findByUserId(request.userId())
-                .orElseGet(() -> inventoryRepository.save(
-                        Inventory.builder()
-                                .userId(request.userId())
-                                .build()
-                ));
-        
-        // 8. 아이템 추가 (stackable 여부에 따라 처리)
         if (product.getIsStackable()) {
-            // stackable: 기존 아이템이 있으면 수량 증가, 없으면 새로 생성
-            itemRepository.findByInventoryAndProduct(inventory, product)
-                    .ifPresentOrElse(
-                            existingItem -> existingItem.increaseAmount(request.quantity()),
-                            () -> createNewItem(inventory, product, request.quantity())
-                    );
+            addStackableItem(inventory, product, quantity);
         } else {
-            // non-stackable: 수량만큼 개별 아이템 생성
-            for (int i = 0; i < request.quantity(); i++) {
-                createNewItem(inventory, product, 1L);
-            }
+            addNonStackableItems(inventory, product, quantity);
         }
     }
-    
-    private void createNewItem(Inventory inventory, Product product, Long amount) {
+
+    private Inventory getOrCreateInventory(String userId) {
+        return inventoryRepository.findByUserId(userId)
+                .orElseGet(() -> inventoryRepository.save(
+                        Inventory.builder().userId(userId).build()
+                ));
+    }
+
+    private void addStackableItem(Inventory inventory, Product product, Long quantity) {
+        itemRepository.findByInventoryAndProduct(inventory, product)
+                .ifPresentOrElse(
+                        item -> item.increaseAmount(quantity),
+                        () -> saveNewItem(inventory, product, quantity)
+                );
+    }
+
+    private void addNonStackableItems(Inventory inventory, Product product, Long quantity) {
+        for (int i = 0; i < quantity; i++) {
+            saveNewItem(inventory, product, 1L);
+        }
+    }
+
+    private void saveNewItem(Inventory inventory, Product product, Long amount) {
         Item item = Item.builder()
                 .inventory(inventory)
                 .product(product)
