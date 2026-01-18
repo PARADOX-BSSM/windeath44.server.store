@@ -15,6 +15,7 @@ import paradox.store.domain.inventory.model.Inventory;
 import paradox.store.domain.inventory.model.Item;
 import paradox.store.domain.inventory.repository.InventoryRepository;
 import paradox.store.domain.inventory.repository.ItemRepository;
+import paradox.store.global.client.UserClient;
 import paradox.store.global.dto.CursorPage;
 
 import java.util.List;

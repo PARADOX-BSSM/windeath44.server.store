@@ -33,11 +33,15 @@ public class Product {
   @Column(name = "is_stackable", nullable = false)
   private Boolean isStackable;
 
-  public void update(String name, String description, String sumnailUrl, Boolean isStackable) {
+  @Column(name = "money", nullable = false)
+  private Long money;
+
+  public void update(String name, String description, String sumnailUrl, Boolean isStackable, Long money) {
     this.name = name;
     this.description = description;
     this.sumnailUrl = sumnailUrl;
     this.isStackable = isStackable;
+    this.money = money;
   }
 
   @Override

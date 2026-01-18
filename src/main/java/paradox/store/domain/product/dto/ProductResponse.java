@@ -7,7 +7,8 @@ public record ProductResponse(
     String name,
     String description,
     String sumnailUrl,
-    Boolean isStackable
+    Boolean isStackable,
+    Long money
 ) {
     public static ProductResponse from(Product product) {
         return new ProductResponse(
@@ -15,7 +16,8 @@ public record ProductResponse(
                 product.getName(),
                 product.getDescription(),
                 product.getSumnailUrl(),
-                product.getIsStackable()
+                product.getIsStackable(),
+                product.getMoney()
         );
     }
 }

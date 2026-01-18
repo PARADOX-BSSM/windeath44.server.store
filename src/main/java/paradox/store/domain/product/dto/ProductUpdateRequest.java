@@ -12,6 +12,8 @@ public record ProductUpdateRequest(
     String description,
     String sumnailUrl,
     @NotNull
-    Boolean isStackable
+    Boolean isStackable,
+    @NotNull
+    Long money
 ) {
 }

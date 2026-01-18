@@ -21,6 +21,7 @@ public class ProductMapper {
                 .description(request.description())
                 .sumnailUrl(request.sumnailUrl())
                 .isStackable(request.isStackable())
+                .money(request.money())
                 .build();
     }
 

@@ -27,7 +27,7 @@ public class ProductCommandService {
   public void updateProduct(Long productId, ProductUpdateRequest request) {
      Product product = productRepository.findById(productId)
          .orElseThrow(NotFoundProductException::getInstance);
-     product.update(request.name(), request.description(), request.sumnailUrl(), request.isStackable());
+     product.update(request.name(), request.description(), request.sumnailUrl(), request.isStackable(), request.money());
   }
 
   @Transactional
