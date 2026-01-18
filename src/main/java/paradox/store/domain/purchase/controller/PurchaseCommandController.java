@@ -20,6 +20,10 @@ public class PurchaseCommandController {
 
     private final PurchaseCommandService purchaseCommandService;
 
+    /**
+     * Purchase Product
+     */
+
     @PostMapping
     public ResponseEntity<ResponseDto<Void>> purchase(@Valid @RequestBody PurchaseRequest request) {
         purchaseCommandService.purchase(request);

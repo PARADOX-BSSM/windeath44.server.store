@@ -19,6 +19,9 @@ public class InventoryQueryController {
 
     private final InventoryQueryService inventoryQueryService;
 
+    /**
+    * Get My Inventory
+    */
     @GetMapping
     public ResponseEntity<ResponseDto<InventoryWithItemsResponse>> getInventoryWithItems(
             @RequestHeader("user-id") String userId,

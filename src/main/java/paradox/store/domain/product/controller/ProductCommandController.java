@@ -23,6 +23,10 @@ public class ProductCommandController {
 
     private final ProductCommandService productService;
 
+    /**
+     * Create Product
+     */
+
     @PostMapping
     public ResponseEntity<ResponseDto<Void>> createProduct(
             @Valid @RequestBody ProductCreateRequest request
@@ -32,6 +36,10 @@ public class ProductCommandController {
 
         return ResponseEntity.ok(responseDto);
     }
+
+    /**
+     * Update Product
+     */
 
     @PutMapping("/{productId}")
     public ResponseEntity<ResponseDto<Void>> updateProduct(
@@ -43,6 +51,10 @@ public class ProductCommandController {
 
         return ResponseEntity.ok(responseDto);
     }
+
+    /**
+     * Delete Product
+     */
 
     @DeleteMapping("/{productId}")
     public ResponseEntity<ResponseDto<Void>> deleteProduct(

@@ -17,6 +17,10 @@ public class PurchaseQueryController {
 
     private final PurchaseQueryService purchaseQueryService;
 
+    /**
+     * Get Purchase History
+     */
+
     @GetMapping
     public ResponseEntity<ResponseDto<List<PurchaseResponse>>> getPurchases(
             @RequestParam String userId,

@@ -20,6 +20,10 @@ public class ProductQueryController {
 
     private final ProductQueryService productQueryService;
 
+    /**
+     * Get Product By Id
+     */
+
     @GetMapping("/{productId}")
     public ResponseEntity<ResponseDto<ProductResponse>> getProduct(
         @PathVariable("productId") Long productId
@@ -28,6 +32,10 @@ public class ProductQueryController {
         ResponseDto<ProductResponse> responseDto = HttpUtil.success("successfully fetched product", response);
         return ResponseEntity.ok(responseDto);
     }
+
+    /**
+     * Get Products (Cursor Pagination)
+     */
 
     @GetMapping
     public ResponseEntity<ResponseDto<CursorPage<ProductResponse>>> getProducts(
