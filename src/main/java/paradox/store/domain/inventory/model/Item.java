@@ -45,4 +45,9 @@ public class Item {
 
     @Column(name = "amount", nullable = false, columnDefinition = "BIGINT DEFAULT 1")
     private Long amount;
+
+
+    public void increaseAmount(Long quantity) {
+        this.amount += quantity;
+    }
 }

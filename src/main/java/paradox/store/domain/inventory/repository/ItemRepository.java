@@ -8,6 +8,9 @@ import org.springframework.data.repository.query.Param;
 import paradox.store.domain.inventory.model.Item;
 
 import java.util.List;
+import java.util.Optional;
+import paradox.store.domain.inventory.model.Inventory;
+import paradox.store.domain.product.model.Product;
 
 public interface ItemRepository extends JpaRepository<Item, Long> {
     @Query("SELECT i.itemId FROM Item i WHERE i.inventory.inventoryId = :inventoryId ORDER BY i.itemId ASC")
@@ -18,4 +21,7 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
     @Query("SELECT i FROM Item i JOIN FETCH i.product WHERE i.itemId IN :itemIds ORDER BY i.itemId ASC")
     List<Item> findAllByItemIdsWithProduct(@Param("itemIds") List<Long> itemIds);
+
+
+    Optional<Item> findByInventoryAndProduct(Inventory inventory, Product product);
 }
